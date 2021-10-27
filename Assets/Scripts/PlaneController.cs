@@ -62,15 +62,14 @@ public class PlaneController : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(transform.position.y);
-		if (Input.GetMouseButton(0))
-		{
-            tikImage.SetActive(true);
-		}
-		else
-		{
-            tikImage.SetActive(false);
-		}
+		//if (Input.GetMouseButton(0))
+		//{
+  //          tikImage.SetActive(true);
+		//}
+		//else
+		//{
+  //          tikImage.SetActive(false);
+		//}
 
 
         // U?U? ??LEMLER?....

@@ -6,7 +6,7 @@ using ElephantSDK;
 public class LevelController : MonoBehaviour
 {
     public static LevelController instance;
-	public int levelNo;
+	public int levelNo, tempLevelNo, totalLevelNo;
 	public List<GameObject> levels = new List<GameObject>();
 	private GameObject currentLevelObj;
 
@@ -19,22 +19,37 @@ public class LevelController : MonoBehaviour
 	private void Start()
 	{
 		//PlayerPrefs.DeleteAll();
-		levelNo = PlayerPrefs.GetInt("level");
-		if (levelNo == 0) levelNo = 1;
-		UIManager.instance.SetLevelText(levelNo);
+		totalLevelNo = PlayerPrefs.GetInt("level");
+		if (totalLevelNo == 0)
+		{
+			totalLevelNo = 1;
+			levelNo = 1;
+		}
+		UIManager.instance.SetLevelText(totalLevelNo);
 		LevelStartingEvents();
 	}
 
 	public void IncreaseLevelNo()
 	{
-		levelNo++;
-		PlayerPrefs.SetInt("level", levelNo);
-		UIManager.instance.SetLevelText(levelNo);
+		tempLevelNo = levelNo;
+		totalLevelNo++;
+		PlayerPrefs.SetInt("level", totalLevelNo);
+		UIManager.instance.SetLevelText(totalLevelNo);
 	}
 
 	// Bu fonksiyon oyun ilk a??ld???nda ?a?r?lacak..
 	public void LevelStartingEvents()
 	{
+		if (totalLevelNo > levels.Count)
+		{
+			levelNo = Random.Range(1, levels.Count + 1);
+			if (levelNo == tempLevelNo) levelNo = Random.Range(1, levels.Count + 1);
+		}
+		else
+		{
+			levelNo = totalLevelNo;
+		}
+		UIManager.instance.levelNoText.text = "Level " + totalLevelNo.ToString();
 		currentLevelObj = Instantiate(levels[levelNo - 1], Vector3.zero, Quaternion.identity);
 		Elephant.LevelStarted(levelNo);
 	}
@@ -53,12 +68,12 @@ public class LevelController : MonoBehaviour
 	{
 		Elephant.LevelFailed(levelNo);
 		// DEAKT?F ED?LEN OBSTACLELARIN TEKRAR A?ILMASI ???N..
-		GameObject[] obstacles;
-		obstacles = GameObject.FindGameObjectsWithTag("obstacle");
-		for (int i = 0; i < obstacles.Length; i++)
-		{
-			obstacles[i].GetComponent<MeshRenderer>().enabled = true;
-		}
+		//GameObject[] obstacles;
+		//obstacles = GameObject.FindGameObjectsWithTag("obstacle");
+		//for (int i = 0; i < obstacles.Length; i++)
+		//{
+		//	obstacles[i].GetComponent<MeshRenderer>().enabled = true;
+		//}
 		GameObject[] collectibles;
 		collectibles = GameObject.FindGameObjectsWithTag("collectible");
 		for (int i = 0; i < collectibles.Length; i++)
