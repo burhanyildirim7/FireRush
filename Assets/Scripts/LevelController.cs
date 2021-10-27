@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ElephantSDK;
 
 public class LevelController : MonoBehaviour
 {
@@ -35,11 +36,13 @@ public class LevelController : MonoBehaviour
 	public void LevelStartingEvents()
 	{
 		currentLevelObj = Instantiate(levels[levelNo - 1], Vector3.zero, Quaternion.identity);
+		Elephant.LevelStarted(levelNo);
 	}
 
 	// next level tu?una bas?ld???nda UIManager scriptinden ?a?r?lacak..
 	public void NextLevelEvents()
 	{
+		Elephant.LevelCompleted(levelNo);
 		Destroy(currentLevelObj);
 		IncreaseLevelNo();
 		LevelStartingEvents();
@@ -47,7 +50,8 @@ public class LevelController : MonoBehaviour
 
 	// restart level tu?una bas?ld???nda UIManager scriptinden ?a?r?lacak..
 	public void RestartLevelEvents()
-	{	
+	{
+		Elephant.LevelFailed(levelNo);
 		// DEAKT?F ED?LEN OBSTACLELARIN TEKRAR A?ILMASI ???N..
 		GameObject[] obstacles;
 		obstacles = GameObject.FindGameObjectsWithTag("obstacle");
