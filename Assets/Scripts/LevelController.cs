@@ -20,6 +20,7 @@ public class LevelController : MonoBehaviour
 	{
 		//PlayerPrefs.DeleteAll();
 		totalLevelNo = PlayerPrefs.GetInt("level");
+		//levelNo = PlayerPrefs.GetInt("levelno");
 		if (totalLevelNo == 0)
 		{
 			totalLevelNo = 1;
@@ -51,13 +52,14 @@ public class LevelController : MonoBehaviour
 		}
 		UIManager.instance.levelNoText.text = "Level " + totalLevelNo.ToString();
 		currentLevelObj = Instantiate(levels[levelNo - 1], Vector3.zero, Quaternion.identity);
-		Elephant.LevelStarted(levelNo);
+		//PlayerPrefs.SetInt("levelno", levelNo);
+		Elephant.LevelStarted(totalLevelNo);
 	}
 
 	// next level tu?una bas?ld???nda UIManager scriptinden ?a?r?lacak..
 	public void NextLevelEvents()
 	{
-		Elephant.LevelCompleted(levelNo);
+		Elephant.LevelCompleted(totalLevelNo);
 		Destroy(currentLevelObj);
 		IncreaseLevelNo();
 		LevelStartingEvents();
@@ -66,7 +68,7 @@ public class LevelController : MonoBehaviour
 	// restart level tu?una bas?ld???nda UIManager scriptinden ?a?r?lacak..
 	public void RestartLevelEvents()
 	{
-		Elephant.LevelFailed(levelNo);
+		Elephant.LevelFailed(totalLevelNo);
 		// DEAKT?F ED?LEN OBSTACLELARIN TEKRAR A?ILMASI ???N..
 		//GameObject[] obstacles;
 		//obstacles = GameObject.FindGameObjectsWithTag("obstacle");

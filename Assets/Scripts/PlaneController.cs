@@ -348,8 +348,9 @@ public class PlaneController : MonoBehaviour
 		}
         else if (other.CompareTag("fire"))
 		{
-            Instantiate(smokePrefab, other.transform.position + new Vector3(0,10,0), Quaternion.Euler(-90,0,0));
+            GameObject smokeparticle = Instantiate(smokePrefab, other.transform.position + new Vector3(0,10,0), Quaternion.Euler(-90,0,0));
             other.gameObject.SetActive(false);
+            Destroy(smokeparticle, 10);
 		}
 	}
 
