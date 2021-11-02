@@ -12,6 +12,11 @@ public class UIManager : MonoBehaviour
 	public Text soundButtonText, levelNoText,scoreText,gemsText, 
 	totalScoreTextStartPanel, totalGemsTextStartPanel, totalScoreTextGamePanel,totalGemsTextGamePanel;
 
+	[SerializeField] private List<GameObject> _compliments = new List<GameObject>();
+
+	//[SerializeField] private List<GameObject> _xObjects = new List<GameObject>();
+
+	private int _complimentNumber;
 
 	private void Awake()
 	{
@@ -26,6 +31,8 @@ public class UIManager : MonoBehaviour
 		totalGemsTextStartPanel.text =PlayerPrefs.GetInt("totalgems").ToString();
 		totalGemsTextGamePanel.text =PlayerPrefs.GetInt("totalgems").ToString();
 		totalScoreTextGamePanel.text =PlayerPrefs.GetInt("totalscore").ToString();
+
+       
 	}
 
 	public void StartUI()
@@ -57,6 +64,8 @@ public class UIManager : MonoBehaviour
 		LoosePanel.SetActive(false);
 		PlaneController.instance.StartPanelEvents();
 		LevelController.instance.RestartLevelEvents();
+
+		//_compliments[_complimentNumber].SetActive(false);
 	}
 
 
@@ -68,6 +77,8 @@ public class UIManager : MonoBehaviour
 		GamePanel.SetActive(false);
 		PlaneController.instance.StartPanelEvents();
 		LevelController.instance.NextLevelEvents();
+
+		_compliments[_complimentNumber].SetActive(false);
 	}
 
 	public void SetScoreText()
@@ -91,6 +102,12 @@ public class UIManager : MonoBehaviour
 		totalGemsTextStartPanel.text =PlayerPrefs.GetInt("totalgems").ToString();
 		totalGemsTextGamePanel.text = PlayerPrefs.GetInt("totalgems").ToString();
 	}
+
+	public void SetCompliments(int deger)
+    {
+		_complimentNumber = deger;
+		_compliments[_complimentNumber].SetActive(true);
+    }
 
 
 }

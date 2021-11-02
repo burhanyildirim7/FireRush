@@ -46,6 +46,7 @@ public class PlaneController : MonoBehaviour
 
     public GameObject tikImage;  // t?klamay? g?stermek i?in sonra silinecek...
 
+    private int _xDegeri;
 
 
     private void Awake()
@@ -292,6 +293,7 @@ public class PlaneController : MonoBehaviour
         waterEffect.SetActive(false);
         GetComponent<CapsuleCollider>().enabled = false;
         UIManager.instance.WinPanel.SetActive(true);
+        UIManager.instance.SetCompliments(_xDegeri);
         UIManager.instance.GamePanel.SetActive(false);
         UIManager.instance.SetScoreText();
         UIManager.instance.SetGemsText();
@@ -351,8 +353,33 @@ public class PlaneController : MonoBehaviour
             GameObject smokeparticle = Instantiate(smokePrefab, other.transform.position + new Vector3(0,10,0), Quaternion.Euler(-90,0,0));
             other.gameObject.SetActive(false);
             Destroy(smokeparticle, 10);
-		}
-	}
+        }
+        else if (other.gameObject.tag == "x1" || other.gameObject.tag == "x2")
+        {
+            other.gameObject.SetActive(false);
+            _xDegeri = 0;
+        }
+        else if (other.gameObject.tag == "x3" || other.gameObject.tag == "x4")
+        {
+            other.gameObject.SetActive(false);
+            _xDegeri = 1;
+        }
+        else if (other.gameObject.tag == "x5" || other.gameObject.tag == "x6")
+        {
+            other.gameObject.SetActive(false);
+            _xDegeri = 2;
+        }
+        else if (other.gameObject.tag == "x7" || other.gameObject.tag == "x8")
+        {
+            other.gameObject.SetActive(false);
+            _xDegeri = 3;
+        }
+        else if (other.gameObject.tag == "x9" || other.gameObject.tag == "x10")
+        {
+            other.gameObject.SetActive(false);
+            _xDegeri = 4;
+        }
+    }
 
 	private void OnTriggerExit(Collider other)
 	{
