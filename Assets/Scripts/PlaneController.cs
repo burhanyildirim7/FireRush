@@ -127,7 +127,7 @@ public class PlaneController : MonoBehaviour
 
             // bat?? miktar? slideri..
             waterDistance = waterDedector.transform.position.y;
-            if (waterDistance < 0.01f) 
+            if (waterDistance < -0.8f) 
             {
                 LevelFailedEvents();
             } 
